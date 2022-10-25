@@ -1,16 +1,17 @@
-import { React, useContext, useEffect } from "react";
+import { React, useContext } from "react";
 import { Link, useLocation } from "react-router-dom";
 import noteContext from "../context/notes/noteContext";
 
 function Navbar() {
-    let location = useLocation();
     const context = useContext(noteContext);
-    const { getNotes } = context;
-    useEffect(() => {
-        getNotes();
-    }, [])
-    return (
+    const { setNote } = context;
+    let location = useLocation();
 
+    const logout = ()=>{
+        localStorage.removeItem("token");
+        setNote([]);
+    }
+    return (
         <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
             <div className="container-fluid">
                 <Link className="navbar-brand" to="/">iNotebook</Link>
@@ -26,10 +27,10 @@ function Navbar() {
                             <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} aria-current="page" to="/about">About</Link>
                         </li>
                     </ul>
-                    <form className="d-flex" role="search">
+                    {!localStorage.getItem("token")?<form className="d-flex" id="loginSignup" role="search">
                         <Link className="btn btn-primary mx-2" to="/login" role="button">Login</Link>
                         <Link className="btn btn-primary mx-2" to="/signup" role="button">SignUp</Link>
-                    </form>
+                    </form>:<Link className="btn btn-primary mx-2" to="/login" role="button" onClick={logout} >Logout</Link>}
                 </div>
             </div>
         </nav>

@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
-
   let navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [])
 
   const [creds, setCreds] = useState({ email: "", password: "" })
 
@@ -22,7 +27,6 @@ const Login = (props) => {
       body: JSON.stringify({ email: creds.email, password: creds.password })
     });
     const json = await response.json();
-    console.log(json);
     if (json.success) {
       //redirect
       localStorage.setItem("token", json.authToken);
@@ -49,4 +53,4 @@ const Login = (props) => {
   )
 }
 
-export default Login
+export default Login;

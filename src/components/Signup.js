@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Signup = (props) => {
 
   const navigate = useNavigate();
-
+  
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      navigate("/");
+    }
+  }, [])
   const [creds, setCreds] = useState({ name: "", email: "", password: "" })
 
   const onChange = (e) => {
@@ -21,7 +26,6 @@ const Signup = (props) => {
       body: JSON.stringify({ name: creds.name, email: creds.email, password: creds.password })
     });
     const json = await response.json();
-    console.log(json);
     if (json.success) {
       //redirect
       localStorage.setItem("token", json.authToken);

@@ -15,7 +15,7 @@ const NoteState = (props) => {
                 method: "GET",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM1NWIzNmE2ODFiYTYzN2FmOWEyY2FjIn0sImlhdCI6MTY2NjY5ODkxM30.8AxuxWDBzdrjmXI_smFbe6Kw-mM85qrMXGPhpxia_s8"
+                    "auth-token": localStorage.getItem("token")
                 }
             });
             const json = await response.json();
@@ -32,7 +32,7 @@ const NoteState = (props) => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM1NWIzNmE2ODFiYTYzN2FmOWEyY2FjIn0sImlhdCI6MTY2NjY5ODkxM30.8AxuxWDBzdrjmXI_smFbe6Kw-mM85qrMXGPhpxia_s8"
+                    "auth-token": localStorage.getItem("token")
                 },
                 body: JSON.stringify({ title: title, description: description, tag: tag })
             });
@@ -50,7 +50,7 @@ const NoteState = (props) => {
                 method: "DELETE",
                 headers: {
                     "Content-Type": "application/json",
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM1NWIzNmE2ODFiYTYzN2FmOWEyY2FjIn0sImlhdCI6MTY2NjY5ODkxM30.8AxuxWDBzdrjmXI_smFbe6Kw-mM85qrMXGPhpxia_s8"
+                    "auth-token": localStorage.getItem("token")
                 }
             });
             const deletedNotesArray = notes.filter((note) => {
@@ -60,23 +60,21 @@ const NoteState = (props) => {
             showAlert("Note Sucessfully Deleted!", "success")
         } catch (error) {
             showAlert("Some error occured!", "danger")
-            console.log("Error in deleteNotes - NoteState.js");
+            console.log("Error in deleteNotes - NoteState.js")
         }
     }
 
     // Edit Note
-    const [toUpdate, setToUpdate] = useState([])
     const editNote = async (id, title, description, tag) => {
         try {
             const response = await fetch(`${host}/api/note/updatenote/${id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM1NWIzNmE2ODFiYTYzN2FmOWEyY2FjIn0sImlhdCI6MTY2NjY5ODkxM30.8AxuxWDBzdrjmXI_smFbe6Kw-mM85qrMXGPhpxia_s8"
+                    "auth-token": localStorage.getItem("token")
                 },
                 body: JSON.stringify({ title: title, description: description, tag: tag })
             });
-            const json = response.json();
             // DeepCopy
             let newNotes = await JSON.parse(JSON.stringify(notes));
             for (let index = 0; index < newNotes.length; index++) {
@@ -93,7 +91,7 @@ const NoteState = (props) => {
     }
     
     return (
-        <NoteContext.Provider value={{ notes: notes, toUpdate: toUpdate, addNote: addNote, deleteNote: deleteNote, editNote: editNote, getNotes: getNotes, setToUpdate: setToUpdate }} >
+        <NoteContext.Provider value={{ notes: notes, addNote: addNote, deleteNote: deleteNote, editNote: editNote, getNotes: getNotes, setNotes: setNotes }} >
             {props.children}
         </NoteContext.Provider>
     )
