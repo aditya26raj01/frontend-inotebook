@@ -1,8 +1,8 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Signup = (props) => {
-  
+
   const navigate = useNavigate();
 
   const [creds, setCreds] = useState({ name: "", email: "", password: "" })
@@ -26,9 +26,9 @@ const Signup = (props) => {
       //redirect
       localStorage.setItem("token", json.authToken);
       navigate("/");
-      props.showAlert("Account Created Sucessfully!","success");
+      props.showAlert("Account Created Sucessfully!", "success");
     } else {
-      props.showAlert("This email already exists. Try Logging in!","danger");
+      props.showAlert("This email already exists. Try Logging in!", "danger");
     }
   }
 

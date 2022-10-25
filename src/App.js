@@ -11,21 +11,21 @@ import Signup from "./components/Signup";
 
 function App() {
   const [alert, setAlert] = useState(null);
-  const showAlert = (message,type)=>{
+  const showAlert = (message, type) => {
     setAlert({
-      message:message,
-      type:type
+      message: message,
+      type: type
     })
-    setTimeout(()=>{
+    setTimeout(() => {
       setAlert(null);
-    },2000)
+    }, 2000)
   }
   return (
     <>
       <NoteState>
         <Router>
           <Navbar />
-          <Alert alert={alert}/>
+          <Alert alert={alert} />
           <div className="container">
             <Routes>
               <Route exact path="/" element={<Home showAlert={showAlert} />} />

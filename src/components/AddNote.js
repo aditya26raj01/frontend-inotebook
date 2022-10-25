@@ -10,9 +10,9 @@ const AddNote = (props) => {
         e.preventDefault();
         try {
             addNote(note.title, note.description, note.tag);
-            props.showAlert("Sucessfully Added a Note","success");
+            props.showAlert("Sucessfully Added a Note", "success");
         } catch (error) {
-            props.showAlert("Some error Occured!","danger");
+            props.showAlert("Some error Occured!", "danger");
         }
         setNote({ title: "", description: "", tag: "" })
     }
@@ -25,7 +25,7 @@ const AddNote = (props) => {
             <form>
                 <div className="mb-3">
                     <label htmlFor="title" className="form-label">Title</label>
-                    <input type="text" name="title" className="form-control" value={note.title}  id="title" onChange={onChange} />
+                    <input type="text" name="title" className="form-control" value={note.title} id="title" onChange={onChange} />
                 </div>
                 <div className="mb-3">
                     <label htmlFor="descriptioon" className="form-label">Description</label>
@@ -33,10 +33,10 @@ const AddNote = (props) => {
                 </div>
                 <div className="mb-3">
                     <label htmlFor="tag" className="form-label">Tag</label>
-                    <input type="text" name="tag" className="form-control" value={note.tag}  id="tag" onChange={onChange} />
+                    <input type="text" name="tag" className="form-control" value={note.tag} id="tag" onChange={onChange} />
                 </div>
-                
-                <button type="submit" disabled={note.title.length<5 || note.description.length<5 || note.tag.length<3} className="btn btn-primary" onClick={handelClick}>Submit</button>
+
+                <button type="submit" disabled={note.title.length < 5 || note.description.length < 5 || note.tag.length < 3} className="btn btn-primary" onClick={handelClick}>Submit</button>
             </form>
         </>
     )
