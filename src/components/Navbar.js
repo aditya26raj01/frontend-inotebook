@@ -1,12 +1,14 @@
-import {React,useEffect} from "react";
+import {React,useContext ,useEffect} from "react";
 import { Link,useLocation } from "react-router-dom";
-
+import noteContext from "../context/notes/noteContext";
 
 function Navbar() {
     let location = useLocation();
+    const context = useContext(noteContext);
+    const { getNotes } = context;
     useEffect(() => {
-      console.log(location);
-    }, [location]);
+        getNotes();
+    }, [])
     return (
         
         <nav className="navbar navbar-expand-lg bg-dark navbar-dark">
@@ -25,8 +27,8 @@ function Navbar() {
                         </li>
                     </ul>
                     <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
+                        <Link className="btn btn-primary mx-2" to="/login" role="button">Login</Link>
+                        <Link className="btn btn-primary mx-2" to="/signup" role="button">SignUp</Link>
                     </form>
                 </div>
             </div>
