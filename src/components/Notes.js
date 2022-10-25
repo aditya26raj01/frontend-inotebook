@@ -4,7 +4,7 @@ import noteContext from "../context/notes/noteContext";
 import AddNote from "./AddNote";
 import NoteItem from "./NoteItem";
 
-const Notes = () => {
+const Notes = (props) => {
     let navigate = useNavigate();
     const context = useContext(noteContext);
     const { notes, setToUpdate } = context;
@@ -16,14 +16,14 @@ const Notes = () => {
 
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={props.showAlert} />
             <div className="row my-3">
                 <h2>Your Notes</h2>
                 <div className="container">
                     {notes.length === 0 && "No Notes to Display"}
                 </div>
                 {notes.map((note, index) => {
-                    return <NoteItem note={note} updateNote={updateNote} key={index} />;
+                    return <NoteItem note={note} showAlert={props.showAlert} updateNote={updateNote} key={index} />;
                 })}
             </div>
         </>

@@ -1,12 +1,12 @@
 import React from "react";
 import Notes from "./Notes";
 
-function Home() {
+function Home(props) {
   return (
     <div>
       <div className="container my-3">
       </div>
-      <Notes/>
+      <Notes showAlert={props.showAlert} />
     </div>
   )
 };

@@ -2,7 +2,7 @@ import React,{useContext, useState} from "react";
 import { useNavigate } from "react-router-dom";
 import noteContext from "../context/notes/noteContext";
 
-const EditNote = () => {
+const EditNote = (props) => {
     const context = useContext(noteContext);
     const { toUpdate, editNote } = context;
     let navigate = useNavigate();
@@ -13,8 +13,14 @@ const EditNote = () => {
     }
     const handelClick = (e) => {
         e.preventDefault();
-        editNote(toUpdate._id, note.title, note.description, note.tag);
-        navigate("/");
+        try {
+            editNote(toUpdate._id, note.title, note.description, note.tag);
+            navigate("/");
+            props.showAlert("Sucessfully Updated the Note","success");
+        } catch (error) {
+            navigate("/");
+            props.showAlert("Some error Occured!","danger");
+        }
     }
     return (
         <>

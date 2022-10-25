@@ -36,18 +36,23 @@ const NoteState = (props) => {
     }
 
     // Delete Note
-    const deleteNote = async (id) => {
-        const response = await fetch(`${host}/api/note/deletenote/${id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json",
-                "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM1NWIzNmE2ODFiYTYzN2FmOWEyY2FjIn0sImlhdCI6MTY2NjY5ODkxM30.8AxuxWDBzdrjmXI_smFbe6Kw-mM85qrMXGPhpxia_s8"
-            }
-        });
-        const deletedNotesArray = notes.filter((note) => {
-            return note._id !== id;
-        })
-        setNotes(deletedNotesArray);
+    const deleteNote = async (id,showAlert) => {
+        try {
+            const response = await fetch(`${host}/api/note/deletenote/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                    "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjM1NWIzNmE2ODFiYTYzN2FmOWEyY2FjIn0sImlhdCI6MTY2NjY5ODkxM30.8AxuxWDBzdrjmXI_smFbe6Kw-mM85qrMXGPhpxia_s8"
+                }
+            });
+            const deletedNotesArray = notes.filter((note) => {
+                return note._id !== id;
+            })
+            setNotes(deletedNotesArray);
+            showAlert("Note Sucessfully Deleted!","success")
+        } catch (error) {
+            showAlert("Some error occured!","danger")
+        }
     }
 
     // Edit Note
